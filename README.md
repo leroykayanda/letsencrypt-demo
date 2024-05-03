@@ -107,4 +107,4 @@ prod
     --email test@gmail.com --agree-tos --no-eff-email \
     -d *.example.com 
 
-Make sure to update ssl-params.conf with the correct path to the wildcard cert.
+Follow [this](https://docs.certbot-dns-azure.co.uk/en/latest/) if you are using wildcard certificates on Azure and would like to automatically perform the DNS challenge.
