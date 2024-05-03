@@ -1,3 +1,4 @@
+
 This repo is a tutorial on how to set up letsencrypt certificates on an nginx container.
 
 docker-compose.yaml
@@ -75,3 +76,33 @@ Set up a cron to run this to automate renewals.
     -v "/home/azure/tests/letsencrypt/log:/var/log/letsencrypt" \
     -v "/home/azure/tests/site-files:/data/letsencrypt" \
     certbot/certbot renew --webroot -w /data/letsencrypt  
+
+To set up a wildcard cert, we have to use [dns challenge](https://letsencrypt.org/docs/challenge-types/). Note that we specify that we shall create a TXT manually using the --manual flag. This certificate thus cannot be renewed automatically. We have to run the cmd below again when we want to renew.
+
+staging
+
+    docker run -it --rm \
+    -v "/home/azure/tests/letsencrypt/etc:/etc/letsencrypt" \
+    -v "/home/azure/tests/letsencrypt/lib:/var/lib/letsencrypt" \
+    -v "/home/azure/tests/letsencrypt/log:/var/log/letsencrypt" \
+    certbot/certbot \
+    certonly \
+    --manual \
+    --preferred-challenges=dns \
+    --register-unsafely-without-email --agree-tos --no-eff-email \
+    --staging \
+    -d *.example.com
+
+
+prod
+
+    docker run -it --rm \
+    -v "/home/azure/tests/letsencrypt/etc:/etc/letsencrypt" \
+    -v "/home/azure/tests/letsencrypt/lib:/var/lib/letsencrypt" \
+    -v "/home/azure/tests/letsencrypt/log:/var/log/letsencrypt" \
+    certbot/certbot \
+    certonly \
+    --manual \
+    --preferred-challenges=dns \
+    --email test@gmail.com --agree-tos --no-eff-email \
+    -d *.example.com 
