@@ -19,18 +19,23 @@ docker-compose.yaml
 **volumes**
 
 `- /home/azure/tests/site-files:/usr/share/nginx/html`
+
 Website files are stored here
 
 `- /home/azure/tests/nginx/default.conf:/etc/nginx/conf.d/default.conf`
+
 This is the nginx configuration file
 
 `- /home/azure/tests/nginx/ssl-params.conf:/etc/ssl/ssl-params.conf`
+
 These are the SSL settings
 
 `- /home/azure/tests/nginx/dhparam.pem:/etc/ssl/certs/dhparam.pem`
+
 This is a file containing Diffie-Hellman parameters used in the SSL/TLS handshake. The contents have been redacted
  
 `- /home/azure/tests/letsencrypt/etc:/etc/letsencrypt`
+
 Letsencrypt will store certificates and logs here.
 
 All instances of example.com need to be replaced with your domain name.
