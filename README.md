@@ -108,3 +108,18 @@ prod
     -d *.example.com 
 
 Follow [this](https://docs.certbot-dns-azure.co.uk/en/latest/) if you are using wildcard certificates on Azure and would like to automatically perform the DNS challenge.
+
+Run this script in order to add the required TXT record in R53 automatically.
+
+    # Set up a virtual environment and install certbot
+    
+    apt install python3.8-venv -y
+    python3 -m venv venv
+    source venv/bin/activate
+    pip install certbot-dns-route53
+    
+    # Request a certificate using DNS validation. The needed TXT record is created automatically in R53
+    
+    certbot certonly --dns-route53 \
+    --email admin@example.com --agree-tos --no-eff-email \
+    -d pexample.com
